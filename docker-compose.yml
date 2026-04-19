@@ -1,4 +1,4 @@
-ces:
+services:
   gluetun:
     image: qmcgaw/gluetun:latest
     container_name: gluetun
@@ -38,7 +38,7 @@ ces:
     container_name: qbittorrent
     volumes: 
       - ./data/qbittorrent:/config
-      - ~/tmp/plex/downloads:/downloads
+      - ${MEDIA_FOLDER}/downloads:/downloads
     environment: 
       - WEBUI_PORT=8120
       - TZ=${TIME_ZONE:?err}
@@ -53,8 +53,8 @@ ces:
     container_name: sonarr
     volumes:
       - ./data/sonarr/config:/config
-      - ~/tmp/plex/downloads:/downloads
-      - ~/tmp/plex/tv:/tv
+      - ${MEDIA_FOLDER}/downloads:/downloads
+      - ${MEDIA_FOLDER}/tv:/tv
     environment:
       - TZ=${TIME_ZONE:?err}
       - PUID=${PUID:?err}
@@ -68,8 +68,8 @@ ces:
     container_name: radarr
     volumes:
       - ./data/radarr/config:/config
-      - ~/tmp/plex/downloads:/downloads
-      - ~/tmp/plex/movies:/movies
+      - ${MEDIA_FOLDER}/downloads:/downloads
+      - ${MEDIA_FOLDER}/movies:/movies
     environment:
       - TZ=${TIME_ZONE:?err}
       - PUID=${PUID:?err}
@@ -102,8 +102,8 @@ ces:
     container_name: plex
     volumes:
       - ./data/plex/config:/config
-      - ~/tmp/plex/movies:/movies
-      - ~/tmp/plex/tv:/tv
+      - ${MEDIA_FOLDER}/movies:/movies
+      - ${MEDIA_FOLDER}/tv:/tv
     environment:
       - TZ=${TIME_ZONE:?err}
       - PUID=${PUID:?err}
