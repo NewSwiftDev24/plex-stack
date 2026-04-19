@@ -1,4 +1,4 @@
-services:
+ces:
   gluetun:
     image: qmcgaw/gluetun:latest
     container_name: gluetun
@@ -113,3 +113,4 @@ services:
       - PLEX_CLAIM=${PLEX_CLAIM:?err}
     network_mode: "service:gluetun"
     restart: unless-stopped
+
