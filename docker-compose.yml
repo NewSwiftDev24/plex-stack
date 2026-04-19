@@ -1,4 +1,4 @@
-services:
+ces:
   gluetun:
     image: qmcgaw/gluetun:latest
     container_name: gluetun
@@ -22,8 +22,7 @@ services:
       - ./data/gluetun:/gluetun
       - ./data/gluetun/temp:/tmp/gluetun
     environment:
-      - DNS_ADDRESS=127.0.0.11
-      - TZ=America/Chicago
+      - TZ=${TIME_ZONE:?err}
       - VPN_SERVICE_PROVIDER=nordvpn
       - VPN_TYPE=openvpn
       - OPENVPN_USER=${OPENVPN_USER:?err}
@@ -37,59 +36,59 @@ services:
   qbittorrent: 
     image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
-    restart: unless-stopped
     volumes: 
       - ./data/qbittorrent:/config
       - ~/tmp/plex/downloads:/downloads
     environment: 
-      - TZ=America/Chicago
       - WEBUI_PORT=8120
-      - PUID=1000
-      - PGID=1000
+      - TZ=${TIME_ZONE:?err}
+      - PUID=${PUID:?err}
+      - PGID=${PGID:?err}
       - UMASK=022
     network_mode: "service:gluetun"
+    restart: unless-stopped
 
   sonarr:
     image: lscr.io/linuxserver/sonarr:latest
     container_name: sonarr
-    network_mode: "service:gluetun"
-    environment:
-      - TZ=America/Chicago
-      - PUID=1001
-      - PGID=1000
-      - UMASK=022
     volumes:
       - ./data/sonarr/config:/config
       - ~/tmp/plex/downloads:/downloads
       - ~/tmp/plex/tv:/tv
+    environment:
+      - TZ=${TIME_ZONE:?err}
+      - PUID=${PUID:?err}
+      - PGID=${PGID:?err}
+      - UMASK=022
+    network_mode: "service:gluetun"
     restart: unless-stopped
   
   radarr:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
-    network_mode: "service:gluetun"
-    environment:
-      - TZ=America/Chicago
-      - PUID=1002
-      - PGID=1000
-      - UMASK=022
     volumes:
       - ./data/radarr/config:/config
       - ~/tmp/plex/downloads:/downloads
       - ~/tmp/plex/movies:/movies
+    environment:
+      - TZ=${TIME_ZONE:?err}
+      - PUID=${PUID:?err}
+      - PGID=${PGID:?err}
+      - UMASK=022
+    network_mode: "service:gluetun"
     restart: unless-stopped
   
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest
     container_name: prowlarr
-    network_mode: "service:gluetun"
-    environment:
-      - TZ=America/Chicago
-      - PUID=1003
-      - PGID=1000
-      - UMASK=022
     volumes:
       - ./data/prowlarr/config:/config
+    environment:
+      - TZ=${TIME_ZONE:?err}
+      - PUID=${PUID:?err}
+      - PGID=${PGID:?err}
+      - UMASK=022
+    network_mode: "service:gluetun"
     restart: unless-stopped
 
   byparr:
@@ -101,16 +100,17 @@ services:
   plex:
     image: lscr.io/linuxserver/plex:latest
     container_name: plex
-    network_mode: "service:gluetun"
-    environment:
-      - TZ=America/Chicago
-      - PUID=1004
-      - PGID=1000
-      - UMASK=022
-      - VERSION=docker
-      - PLEX_CLAIM=${PLEX_CLAIM:?err}
     volumes:
       - ./data/plex/config:/config
       - ~/tmp/plex/movies:/movies
       - ~/tmp/plex/tv:/tv
+    environment:
+      - TZ=${TIME_ZONE:?err}
+      - PUID=${PUID:?err}
+      - PGID=${PGID:?err}
+      - UMASK=022
+      - VERSION=docker
+      - PLEX_CLAIM=${PLEX_CLAIM:?err}
+    network_mode: "service:gluetun"
     restart: unless-stopped
+
