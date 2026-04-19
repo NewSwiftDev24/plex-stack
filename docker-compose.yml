@@ -22,7 +22,7 @@ services:
       - ./data/gluetun:/gluetun
       - ./data/gluetun/temp:/tmp/gluetun
     environment:
-      - TZ=${TIMEXZONE:?err}
+      - TZ=${TIMEZONE:?err}
       - VPN_SERVICE_PROVIDER=nordvpn
       - VPN_TYPE=openvpn
       - OPENVPN_USER=${OPENVPN_USER:?err}
@@ -41,7 +41,7 @@ services:
       - ${MEDIA_FOLDER}/downloads:/downloads
     environment: 
       - WEBUI_PORT=8120
-      - TZ=${TIMEXZONE:?err}
+      - TZ=${TIMEZONE:?err}
       - PUID=${PUID:?err}
       - PGID=${PGID:?err}
       - UMASK=022
@@ -56,7 +56,7 @@ services:
       - ${MEDIA_FOLDER}/downloads:/downloads
       - ${MEDIA_FOLDER}/tv:/tv
     environment:
-      - TZ=${TIMEXZONE:?err}
+      - TZ=${TIMEZONE:?err}
       - PUID=${PUID:?err}
       - PGID=${PGID:?err}
       - UMASK=022
@@ -71,7 +71,7 @@ services:
       - ${MEDIA_FOLDER}/downloads:/downloads
       - ${MEDIA_FOLDER}/movies:/movies
     environment:
-      - TZ=${TIMEXZONE:?err}
+      - TZ=${TIMEZONE:?err}
       - PUID=${PUID:?err}
       - PGID=${PGID:?err}
       - UMASK=022
@@ -84,7 +84,7 @@ services:
     volumes:
       - ./data/prowlarr/config:/config
     environment:
-      - TZ=${TIMEXZONE:?err}
+      - TZ=${TIMEZONE:?err}
       - PUID=${PUID:?err}
       - PGID=${PGID:?err}
       - UMASK=022
@@ -105,7 +105,7 @@ services:
       - ${MEDIA_FOLDER}/movies:/movies
       - ${MEDIA_FOLDER}/tv:/tv
     environment:
-      - TZ=${TIMEXZONE:?err}
+      - TZ=${TIMEZONE:?err}
       - PUID=${PUID:?err}
       - PGID=${PGID:?err}
       - UMASK=022
