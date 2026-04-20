@@ -17,7 +17,7 @@ services:
       - 7878:7878
       - 8191:8191
       - 9696:9696
-      - 32400:32400
+#      - 32400:32400
     volumes:
       - ./data/gluetun:/gluetun
       - ./data/gluetun/temp:/tmp/gluetun
@@ -94,12 +94,15 @@ services:
   byparr:
     image: ghcr.io/thephaseless/byparr:latest
     container_name: byparr
+    init: true
     restart: unless-stopped
     network_mode: "service:gluetun"
 
   plex:
     image: lscr.io/linuxserver/plex:latest
     container_name: plex
+    ports:
+      - 32400:32400
     volumes:
       - ./data/plex/config:/config
       - ${MEDIA_FOLDER}/movies:/movies
@@ -111,6 +114,7 @@ services:
       - UMASK=022
       - VERSION=docker
       - PLEX_CLAIM=${PLEX_CLAIM:?err}
-    network_mode: "service:gluetun"
+    # network_mode: "service:gluetun"
+    network_mode: host
     restart: unless-stopped
 
